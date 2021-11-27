@@ -1,0 +1,68 @@
+#pragma GCC optimize "trapv"
+#include<bits/stdc++.h>
+#define int long long
+#define pb push_back
+#define ppb pop_back
+#define ff first
+#define ss second
+#define sz(s) (int)(s.size())
+#define all(a) (a).begin(),(a).end()
+#define pii pair<int,int>
+#define deb(x) cout << #x << " = " << x << endl
+#define endl '\n'
+#define M 1000000007
+const int INF = 1ll << 60;
+using namespace std;
+
+
+void solve() {
+
+	int n, w;
+	cin >> n >> w;
+
+	map<int, int> mp;
+	priority_queue<int> pq;
+	int dcs, wt;
+	for (int i = 0; i < n; ++i) {
+		cin >> dcs >> wt;
+		if (mp[dcs] == 0) {
+			pq.push(dcs);
+		}
+		mp[dcs] += wt;
+	}
+
+
+	int i = 0, l = sz(pq);
+	int wi = 0, ans = 0;
+
+	while (wi < w and i < l) {
+		int d = pq.top();
+		pq.pop();
+
+		int gm = mp[d];
+		if (wi + gm <= w) {
+			ans += d * gm;
+			wi += gm;
+		} else {
+			ans += d * (w - wi);
+			wi = w;
+		}
+		// deb(ans);
+		// deb(wi);
+		i++;
+	}
+
+	cout << ans << endl;
+
+
+}
+
+signed main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	int t = 1;
+	// cin >> t;
+	while (t--) {
+		solve();
+	}
+}
